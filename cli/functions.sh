@@ -92,7 +92,7 @@ function readFunctionParams {
       exit -1
     fi
   else
-    FUNCTION_NAME=$( echo "$FUNCTION_ARN" | sed -E -n 's#^arn:aws:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
+    FUNCTION_NAME=$( echo "$FUNCTION_ARN" | sed -E -n 's#^arn:aws-cn:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
     if [ -z "${FUNCTION_NAME}" ]; then
       echo "Invalid ARN '${FUNCTION_ARN}', must be a fully qualified AWS Lambda Function ARN" 1>&2
       exit -1
@@ -110,7 +110,7 @@ function readFunctionParams {
       exit -1
     fi
   else
-    TABLE_NAME=$( echo "$TABLE_ARN" | sed -E -n 's#^arn:aws:dynamodb:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:table/([a-zA-Z0-9._-]{2,255})$#\1#p' )
+    TABLE_NAME=$( echo "$TABLE_ARN" | sed -E -n 's#^arn:aws-cn:dynamodb:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:table/([a-zA-Z0-9._-]{2,255})$#\1#p' )
     if [ -z "${TABLE_NAME}" ]; then
       echo "Invalid ARN '${TABLE_ARN}', must be a fully qualified AWS DynamoDB Table ARN" 1>&2
       exit -1
@@ -264,10 +264,10 @@ function deployFanout {
           cd "$OLD"
           exit -1
         fi
-        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess ${CLI_PARAMS[@]}
-        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole ${CLI_PARAMS[@]}
-        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaKinesisExecutionRole ${CLI_PARAMS[@]}
-        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole ${CLI_PARAMS[@]}
+        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws-cn:iam::aws:policy/AmazonDynamoDBReadOnlyAccess ${CLI_PARAMS[@]}
+        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws-cn:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole ${CLI_PARAMS[@]}
+        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws-cn:iam::aws:policy/service-role/AWSLambdaKinesisExecutionRole ${CLI_PARAMS[@]}
+        aws iam attach-role-policy --role-name $EXEC_ROLE_NAME --policy-arn arn:aws-cn:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole ${CLI_PARAMS[@]}
         aws iam put-role-policy --role-name $EXEC_ROLE_NAME --policy-name Metrics --policy-document '{"Version": "2012-10-17", "Statement": [{"Action": ["cloudwatch:PutMetricData"], "Resource": ["*"], "Effect": "Allow", "Sid": ""}]}' ${CLI_PARAMS[@]}
         aws iam put-role-policy --role-name $EXEC_ROLE_NAME --policy-name ReadConfiguration --policy-document '{"Version": "2012-10-17", "Statement": [{"Action": ["dynamodb:Query"], "Resource": ["'$TABLE_ARN'"], "Effect": "Allow"}]}' ${CLI_PARAMS[@]}
         aws iam put-role-policy --role-name $EXEC_ROLE_NAME --policy-name PublishData --policy-document '{"Version": "2012-10-17", "Statement": [{"Action": ["sts:AssumeRole","kinesis:PutRecord*","sqs:SendMessage*","sns:Publish","firehose:PutRecordBatch","iot:Publish*","lambda:Invoke*","es:ESHttpPost"], "Resource": ["*"], "Effect": "Allow", "Sid": ""}]}' ${CLI_PARAMS[@]}
@@ -277,7 +277,7 @@ function deployFanout {
       fi
 
     else
-      EXEC_ROLE_NAME=$( echo "$EXEC_ROLE_ARN" | sed -E -n 's#^arn:aws:iam::role/([a-zA-Z0-9+=,.@_-]{1,64})$#\1#p' )
+      EXEC_ROLE_NAME=$( echo "$EXEC_ROLE_ARN" | sed -E -n 's#^arn:aws-cn:iam::role/([a-zA-Z0-9+=,.@_-]{1,64})$#\1#p' )
       if [ ! -z "$EXEC_ROLE_NAME" ]; then
         echo "Invalid ARN '${TABLE_ARN}', must be a fully qualified AWS IAM Role ARN" 1>&2
         cd "$OLD"

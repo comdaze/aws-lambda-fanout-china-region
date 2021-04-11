@@ -256,7 +256,7 @@ function readTargetParams {
   done
 
   if [ ! -z "${DESTINATION_ROLE_ARN}" ]; then
-    DESTINATION_ROLE_NAME=$( echo "$DESTINATION_ROLE_ARN" | sed -E -n 's#^arn:aws:iam::[0-9]{12}:role/([a-zA-Z0-9+=,.@_-]{1,64})$#\1#p' )
+    DESTINATION_ROLE_NAME=$( echo "$DESTINATION_ROLE_ARN" | sed -E -n 's#^arn:aws-cn:iam::[0-9]{12}:role/([a-zA-Z0-9+=,.@_-]{1,64})$#\1#p' )
     if [ -z "${DESTINATION_ROLE_NAME}" ]; then
       echo "Invalid ARN '${DESTINATION_ROLE_ARN}', must be a fully qualified AWS IAM Role ARN" 1>&2
       exit -1

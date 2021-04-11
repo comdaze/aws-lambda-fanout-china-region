@@ -34,14 +34,14 @@ source "$DIR/cli/help.sh"
 ## Locates a destination AWS Lambda Function
 function checkLambdaTarget {
   if [ ! -z "$DESTINATION_NAME" ]; then
-    DESTINATION_ID=$( echo "$DESTINATION_NAME" | sed -E -n 's#^arn:aws:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
+    DESTINATION_ID=$( echo "$DESTINATION_NAME" | sed -E -n 's#^arn:aws-cn:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
     if [ -z "${DESTINATION_ID}" ]; then
       if [ ! -z "${DESTINATION_ROLE_ARN}" ]; then
         echo "Invalid ARN '${DESTINATION_NAME}', must be a fully qualified AWS Lambda Function ARN" 1>&2
         echo " - You specified a Role ARN, and name expansion can only be made on functions within your local user" 1>&2
         exit -1
       else
-        DESTINATION_ID=$(aws lambda "get-function" --function-name ${DESTINATION_NAME} --no-paginate --query 'Configuration.FunctionArn' --output text ${DESTINATION_SEARCH_ARGS[@]} 2> /dev/null | sed -E -n 's#^arn:aws:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
+        DESTINATION_ID=$(aws lambda "get-function" --function-name ${DESTINATION_NAME} --no-paginate --query 'Configuration.FunctionArn' --output text ${DESTINATION_SEARCH_ARGS[@]} 2> /dev/null | sed -E -n 's#^arn:aws-cn:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:([a-zA-Z0-9_-]{1,64})$#\1#p' )
         if [ -z "${DESTINATION_ID}" ]; then
           echo "Can not find function with name '${DESTINATION_NAME}' in the local account" 1>&2
           exit -1
@@ -74,14 +74,14 @@ function checkKinesisTarget {
 ## Locates a destination Amazon Kinesis Firehose Delivery Stream
 function checkFirehoseTarget {
   if [ ! -z "$DESTINATION_NAME" ]; then
-    DESTINATION_ID=$( echo "$DESTINATION_NAME" | sed -E -n 's#^arn:aws:firehose:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:deliverystream/([a-zA-Z0-9_-]{1,64})$#\1#p' )
+    DESTINATION_ID=$( echo "$DESTINATION_NAME" | sed -E -n 's#^arn:aws-cn:firehose:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:deliverystream/([a-zA-Z0-9_-]{1,64})$#\1#p' )
     if [ -z "${DESTINATION_ID}" ]; then
       if [ ! -z "${DESTINATION_ROLE_ARN}" ]; then
         echo "Invalid ARN '${DESTINATION_NAME}', must be a fully qualified Amazon Kinesis Firehose Delivery Stream ARN" 1>&2
         echo " - You specified a Role ARN, and name expansion can only be made on streams within your local user" 1>&2
         exit -1
       else
-        DESTINATION_ID=$(aws firehose describe-delivery-stream --delivery-stream-name ${DESTINATION_NAME} --query 'DeliveryStreamDescription.DeliveryStreamARN' --output text ${DESTINATION_SEARCH_ARGS[@]} 2> /dev/null | sed -E -n 's#^arn:aws:firehose:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:deliverystream/([a-zA-Z0-9_-]{1,64})$#\1#p' )
+        DESTINATION_ID=$(aws firehose describe-delivery-stream --delivery-stream-name ${DESTINATION_NAME} --query 'DeliveryStreamDescription.DeliveryStreamARN' --output text ${DESTINATION_SEARCH_ARGS[@]} 2> /dev/null | sed -E -n 's#^arn:aws-cn:firehose:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:deliverystream/([a-zA-Z0-9_-]{1,64})$#\1#p' )
         if [ -z "${DESTINATION_ID}" ]; then
           echo "Can not find stream with name '${DESTINATION_NAME}' in the local account" 1>&2
           exit -1
@@ -130,7 +130,7 @@ function checkIotTarget {
 ## Locates a destination Amazon SNS Topic
 function checkSnsTarget {
   if [ ! -z "$DESTINATION_NAME" ]; then
-    DESTINATION_ID=$( echo "$DESTINATION_NAME" | grep -E -e '^arn:aws:sns:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:[a-zA-Z0-9_-][a-zA-Z0-9_-]{0,255}$' )
+    DESTINATION_ID=$( echo "$DESTINATION_NAME" | grep -E -e '^arn:aws-cn:sns:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:[a-zA-Z0-9_-][a-zA-Z0-9_-]{0,255}$' )
     if [ -z "${DESTINATION_ID}" ]; then
       if [ ! -z "${DESTINATION_ROLE_ARN}" ]; then
         echo "Invalid ARN '${DESTINATION_NAME}', must be a fully qualified Amazon SNS Topic ARN" 1>&2
