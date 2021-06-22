@@ -3,6 +3,7 @@
 
 
 (```)
+
 $ git clone https://github.com/comdaze/aws-lambda-fanout-china-region.git
 $ cd aws-lambda-fanout-china-region
 $ ./fanout deploy --function fanout
