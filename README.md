@@ -1,5 +1,7 @@
-
+# 在AWS中国区区域部署Lambda Fanout
 在AWS 北京区域创建Kinesis data stream ，名称为：source-bjs-kds；宁夏区域创建创建名称为：target-zhy-kds
+
+
 (```)
 $ git clone https://github.com/comdaze/aws-lambda-fanout-china-region.git
 $ cd aws-lambda-fanout-china-region
