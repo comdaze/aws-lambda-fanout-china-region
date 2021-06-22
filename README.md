@@ -7,9 +7,9 @@
 $ git clone https://github.com/comdaze/aws-lambda-fanout-china-region.git
 $ cd aws-lambda-fanout-china-region
 $ ./fanout deploy --function fanout
-$ ./fanout.china register kinesis --function fanout --source-type kinesis --source-arn arn:aws-cn:kinesis:cn-north-1:456370280007:stream/source-bjs-kds --id bjs-zhy-kineis --destination arn:aws-cn:kinesis:cn-northwest-1:456370280007:stream/target-zhy-kds --destination-region cn-northwest-1 --region cn-north-1 --active true
-$ ./fanout.china hook --function fanout --source-type kinesis --source source-bjs-kds
-$ ./fanout.china list --function fanout --source-type kinesis --source source-bjs-kds
+$ ./fanout register kinesis --function fanout --source-type kinesis --source-arn arn:aws-cn:kinesis:cn-north-1:456370280007:stream/source-bjs-kds --id bjs-zhy-kineis --destination arn:aws-cn:kinesis:cn-northwest-1:456370280007:stream/target-zhy-kds --destination-region cn-northwest-1 --region cn-north-1 --active true
+$ ./fanout hook --function fanout --source-type kinesis --source source-bjs-kds
+$ ./fanout list --function fanout --source-type kinesis --source source-bjs-kds
 --------------------------------------------------------------
 |                            Query                           |
 +-----------------+----------+------------------+------------+
