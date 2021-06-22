@@ -4,8 +4,8 @@
 
 (```)
 
-$ git clone https://github.com/comdaze/aws-lambda-fanout-china-region.git
-$ cd aws-lambda-fanout-china-region
+$ git clone https://github.com/comdaze/aws-lambda-fanout-china-region.git \n
+$ cd aws-lambda-fanout-china-region \n
 $ ./fanout deploy --function fanout
 $ ./fanout.china register kinesis --function fanout --source-type kinesis --source-arn arn:aws-cn:kinesis:cn-north-1:456370280007:stream/source-bjs-kds --id bjs-zhy-kineis --destination arn:aws-cn:kinesis:cn-northwest-1:456370280007:stream/target-zhy-kds --destination-region cn-northwest-1 --region cn-north-1 --active true
 $ ./fanout.china hook --function fanout --source-type kinesis --source source-bjs-kds
