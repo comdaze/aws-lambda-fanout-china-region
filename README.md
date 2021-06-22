@@ -19,3 +19,4 @@ $ ./fanout list --function fanout --source-type kinesis --source source-bjs-kds
 +-----------------+----------+------------------+------------+
 
 ```
+fanout详细用法和命令行帮助，参考help.md
