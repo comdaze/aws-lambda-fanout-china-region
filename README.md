@@ -1,6 +1,10 @@
 # 在AWS中国区区域部署Lambda Fanout
-在AWS 北京区域创建Kinesis data stream ，名称为：source-bjs-kds；宁夏区域创建创建名称为：target-zhy-kds
+Kinesis data stream目前不支持跨区域复制，本方案采用Lambda Fanout函数实现了Kinesis data stream从北京区域复制到宁夏区域。
+其实fanout还支持Kinesis data stream和DynamoDB异构复制，架构示意图如下：
 
+![架构图](./architecture.png)
+
+在AWS 北京区域创建Kinesis data stream ，名称为：source-bjs-kds；宁夏区域创建创建名称为：target-zhy-kds
 
 ```
 
@@ -19,4 +23,4 @@ $ ./fanout list --function fanout --source-type kinesis --source source-bjs-kds
 +-----------------+----------+------------------+------------+
 
 ```
-fanout详细用法和命令行帮助，参考help.md
+fanout详细用法和命令行帮助，参考[帮助](/help.md)
